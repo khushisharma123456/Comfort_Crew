@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Comfort Crew</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .thank-you-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .thank-you-container h2 {
+            font-size: 36px;
+            color: #ff6f91;
+            margin-bottom: 20px;
+        }
+
+        .thank-you-container p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .btn-home {
+            padding: 12px 30px;
+            background-color: #4fdcd3;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-home:hover {
+            background-color: #38b0a9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="thank-you-container">
+        <h2>Thank You for Your Feedback!</h2>
+        <p>Your feedback has been successfully submitted. We appreciate your input and will continue to improve our services.</p>
+        <a href="{{ url_for('home') }}" class="btn-home">Go to Home</a>
+    </div>
+
+</body>
+</html>

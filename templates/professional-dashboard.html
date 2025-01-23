@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #fbc2eb, #a6c1ee);
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            background: #ff6f91;
+            padding: 10px 20px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffe0e9;
+        }
+
+        nav h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #ff6f91;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        p, a {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f7f7f7;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px 20px;
+            margin-top: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        footer .social-icons {
+            margin: 10px 0;
+        }
+
+        footer .social-icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        footer .social-icons a:hover {
+            color: #ff6f91;
+        }
+
+        footer p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #ff6f91;
+            border: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #e05b7f;
+        }
+
+        .navbar-links {
+            display: flex; /* Ensures the links are laid out in a row */
+            gap: 20px; /* Adds spacing between links */
+            align-items: center; /* Aligns items vertically */
+        }
+        
+        .nav-link {
+            text-decoration: none; /* Removes underline */
+            font-weight: bold;
+            color: #333;
+            transition: color 0.3s ease, font-size 0.3s ease;
+            padding: 5px 10px; /* Adds some padding around the links */
+        }
+        
+        .nav-link:hover {
+            color: #ff6f91 !important; /* Adds a hover color */
+            font-size: 18px; /* Slightly increases size on hover */
+        }
+        
+        .logout-link {
+            color: #ff6f91; /* Highlights the logout link */
+        }
+        
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(5px); /* Adds blur effect to navbar background */
+            padding: 10px 20px; /* Adds spacing inside the navbar */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+        }
+        
+
+           
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background: rgba(255, 255, 255, 0.8); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        <a class="navbar-brand" href="#" style="font-weight: bold; color: #ff6f91; font-size: 24px;">Comfort Crew</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <div class="navbar-links">
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+                <a class="nav-link" href="{{ url_for('about_us') }}">About Us</a>
+                <a class="nav-link" href="{{ url_for('feedback') }}">Feedback</a>
+                <a class="nav-link logout-link" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    
+
+        <h1>Welcome, {{ current_user.username }}</h1>
+    
+
+    <main>
+        <!-- Display the selected category -->
+        <section>
+            <h2>Your Category</h2>
+            <p>You are currently offering services in: <strong>{{ category }}</strong></p>
+            <a href="{{ url_for('select_category') }}">Change Category</a>
+        </section>
+
+        <!-- Service Requests -->
+        <section>
+            <h2>Your Bookings</h2>
+                <ul>
+                    {% for booking in bookings %}
+                        <li>
+                            <strong>Service Name:</strong> {{ booking.service_name }}<br>
+                            <strong>Customer:</strong> {{ booking.customer.username }}<br>
+                            <strong>Approval Status:</strong> {{ booking.approval_status }}<br>
+                            <strong>Status:</strong> {{ booking.status }}<br>
+                            
+                            {% if booking.approval_status == 'Approved' and booking.status == 'Pending' %}
+                                <form action="{{ url_for('accept_booking', booking_id=booking.id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-success">Accept</button>
+                                </form>
+                                <form action="{{ url_for('reject_booking', booking_id=booking.id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                </form>
+                            {% elif booking.approval_status=='Pending' or booking.approval_status=='Rejected' %}
+                                <p style="color: gray;">Action not allowed until admin approval.</p>
+                            {% endif %}
+                            
+                        </li>
+                        <hr>
+                    {% endfor %}
+                </ul>
+        </section>
+        
+    </main>
+
+    
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Comfort Crew</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Body and Layout */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb);
+            color: #333;
+        }
+    
+        nav {
+            background-color: #343a40;
+        }
+    
+        nav .navbar-brand {
+            color: #fff !important;
+        }
+    
+        nav .nav-link {
+            color: #fff !important;
+        }
+    
+        nav .navbar-nav .nav-item:hover {
+            background-color: #ff9a9e;
+        }
+    
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+    
+        /* Content Section */
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+        }
+    
+        h1 {
+            font-size: 36px;
+            color: #ff6f91;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        h2, h3 {
+            color: #333;
+            margin-top: 20px;
+            font-size: 24px;
+            text-decoration: underline;
+        }
+    
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+    
+        .feedback-form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            resize: vertical;
+        }
+    
+        .feedback-form button {
+            background-color: #4fdcd3;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    
+        .feedback-form button:hover {
+            background-color: #38b0a9;
+        }
+    
+        .list-group-item {
+            background-color: #f9f9f9;
+            border: none;
+            margin: 10px 0;
+        }
+    
+        .list-group-item h5 {
+            font-size: 18px;
+            color: #555;
+        }
+    
+        .list-group-item p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+    
+        .btn-info, .btn-primary {
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    
+        .btn-info:hover, .btn-primary:hover {
+            background-color: #357abd;
+        }
+        /* General styling for the star rating */
+.rating {
+    display: inline-block;
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.rating .star {
+    margin: 0 5px;
+}
+
+.rating .star:hover,
+.rating .star.selected {
+    color: #ff9a9e;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    resize: vertical;
+}
+
+button {
+    background-color: #4fdcd3;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #38b0a9;
+}
+
+    </style>
+    
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Comfort Crew</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% if user.role == 'professional' %}{{ url_for('professional_dashboard') }}
+                                              {% elif user.role == 'customer' %}{{ url_for('customer_dashboard') }}
+                                              {% elif user.role == 'admin' %}{{ url_for('admin_dashboard') }}
+                                              {% else %}{{ url_for('home') }}{% endif %}">
+                        Dashboard
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about_us') }}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>>
+
+    <!-- Feedback Form -->
+    <div class="container mt-5">
+        <h1>Give Us Your Feedback</h1>
+        <form method="post" action="{{ url_for('submit_feedback') }}">
+            <div class="container">
+                <h2>Feedback</h2>
+                <p>Please provide your feedback below:</p>
+        
+                <!-- Star Rating Section -->
+                <div class="rating">
+                    <label for="rating">Rate Us:</label>
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+        
+                <input type="hidden" name="rating" id="rating" value="0">
+        
+                <!-- Feedback Textarea -->
+                <div class="form-group">
+                    <label for="feedback">Your Feedback:</label>
+                    <textarea name="feedback" id="feedback" rows="4" required></textarea>
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+            </div>
+        </form>
+        
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Comfort Crew. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+<script>
+    // Get all the star elements
+    const stars = document.querySelectorAll('.star');
+    const ratingInput = document.getElementById('rating');
+
+    // Event listener to handle clicks on the stars
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const ratingValue = star.getAttribute('data-value');
+            ratingInput.value = ratingValue;
+
+            // Update the appearance of the stars based on the rating
+            stars.forEach(star => {
+                if (star.getAttribute('data-value') <= ratingValue) {
+                    star.classList.add('selected');
+                } else {
+                    star.classList.remove('selected');
+                }
+            });
+        });
+
+        // Optional: Hover effect to preview the rating
+        star.addEventListener('mouseover', () => {
+            const ratingValue = star.getAttribute('data-value');
+            stars.forEach(star => {
+                if (star.getAttribute('data-value') <= ratingValue) {
+                    star.classList.add('hover');
+                } else {
+                    star.classList.remove('hover');
+                }
+            });
+        });
+
+        // Reset hover effect when mouse leaves
+        star.addEventListener('mouseout', () => {
+            stars.forEach(star => {
+                star.classList.remove('hover');
+            });
+        });
+    });
+</script>
+
+</html>

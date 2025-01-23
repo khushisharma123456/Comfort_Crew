@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services Provided | Comfort Crew</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb);
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 2px solid #ff6f91;
+        }
+
+        header h1 {
+            font-size: 36px;
+            color: #ff6f91;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px 20px;
+            max-width: 12000px;
+            margin: auto;
+        }
+
+        .service {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .service h3 {
+            font-size: 24px;
+            color: #4a90e2;
+        }
+
+        .service p {
+            font-size: 16px;
+            color: #555;
+            margin: 15px 0;
+        }
+
+        .cta {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta button {
+            padding: 15px 25px;
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cta button:hover {
+            background-color: #357abd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #777;
+            background: rgba(255, 255, 255, 0.9);
+            border-top: 2px solid #ff6f91;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Services Provided</h1>
+        <p>Your one-stop solution for professional and customer care services. We bring convenience and quality right to your doorstep.</p>
+    </header>
+    <div class="services-container">
+        <div class="service">
+            <h3>House Cleaning</h3>
+            <p>Our house cleaning service is designed to keep your home spotless and hygienic. Whether you need a deep cleaning session to prepare for an event or regular maintenance to ensure a clean environment, we have you covered. From scrubbing kitchens and bathrooms to mopping floors and sanitizing furniture, our team works meticulously to transform your space.</p>
+        </div>
+        <div class="service">
+            <h3>Plumbing Services</h3>
+            <p>Plumbing issues can be frustrating, but our skilled plumbers make the process stress-free. We handle a wide range of tasks, including fixing leaky faucets, unclogging drains, and installing modern fixtures like sinks and water heaters. With a focus on efficiency and precision, we ensure that your plumbing system functions perfectly.</p>
+        </div>
+        <div class="service">
+            <h3>Electrical Repairs</h3>
+            <p>Electrical problems can disrupt your daily life and pose safety risks. That’s why our certified electricians are here to deliver safe and efficient solutions. From repairing faulty wiring to upgrading electrical panels, we ensure your home or workplace stays powered without any hazards.</p>
+        </div>
+        <div class="service">
+            <h3>Personal Care</h3>
+            <p>Experience the luxury of professional grooming and beauty services from the comfort of your home. Our personal care specialists provide a wide range of services, including haircuts, styling, facials, and massages. Whether you're preparing for a special occasion or indulging in a self-care day, we bring the salon experience to you.</p>
+        </div>
+    </div>
+    <div class="cta">
+        <button onclick="location.href='/login'">Book a Service</button>
+    </div>
+    <footer>
+        &copy; 2024 Comfort Crew | All Rights Reserved
+    </footer>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comfort Crew - Customer Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb);
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #ff6f91;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-top: 20px;
+            border-bottom: 2px solid #ff9a9e;
+            padding-bottom: 5px;
+        }
+
+        .booking, .professional {
+            background: #fff;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .booking h3, .professional h3 {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .booking p, .professional p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .view-btn {
+            background-color: #4fdcd3;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .view-btn:hover {
+            background-color: #38b0a9;
+        }
+
+        .book-btn {
+            background-color: #4a90e2;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .book-btn:hover {
+            background-color: #357abd;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #ff6f91 !important;
+        }
+        
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+        
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background: rgba(255, 255, 255, 0.8); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        <a class="navbar-brand" href="#" style="font-weight: bold; color: #ff6f91; font-size: 24px;">Comfort Crew</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}" style="font-weight: bold; color: #333;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('profile') }}" style="font-weight: bold; color: #333;">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about_us') }}" style="font-weight: bold; color: #333;">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('feedback') }}" style="font-weight: bold; color: #333;">Feedback</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}" style="font-weight: bold; color: #ff6f91;">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container mt-5">
+        <h2>Welcome, {{ current_user.username }}</h2>
+        <p>Your dashboard provides access to your bookings, personal profile, and support options.</p>
+
+        <!-- d=show booking-->
+        <h3>Your Bookings</h3>
+        {% if bookings %}
+            <ul class="list-group">
+                {% for booking in bookings %}
+                    <li class="list-group-item">
+                        <h5>Booked Professional: {{ booking.professional.username }}</h5>
+                        <p>Category: {{ booking.professional.category }}</p>
+                        <p>Service Date: {{ booking.booking_date.strftime('%Y-%m-%d') }}</p>
+                        <p><strong>Arrival Time:</strong> {{ booking.arrival_time.strftime('%I:%M %p') if booking.arrival_time else "N/A" }}</p>
+                        <p>Status: <strong>{{ booking.status }}</strong></p>
+                        <p>Base price: <strong>{{booking.base_price}}</strong></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No bookings found. Book a professional below!</p>
+        {% endif %}
+
+        <!-- Category Filter Dropdown -->
+        <h3>Filter Professionals by Category</h3>
+        <form method="get" action="{{ url_for('customer_dashboard') }}">
+            <div class="form-group">
+                <label for="category">Select Category:</label>
+                <select name="category" id="category" class="form-control" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
+                    <option value="Beauty">Beauty</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Cleaning">Cleaning</option>
+                    <option value="Plumbing">Plumbing</option>
+                </select>
+            </div>
+        </form>
+
+        <!-- Available Professionals List -->
+        <h3>Available Professionals</h3>
+        <ul class="list-group">
+            {% for professional in professionals %}
+                <li class="list-group-item">
+                    <h5>{{ professional.username }}</h5>
+                    <p>Category: {{ professional.category|default('No Category')|capitalize }}</p>
+                    <a href="{{ url_for('view_professional', professional_id=professional.id) }}" class="btn btn-info btn-sm">View Profile</a>
+                    <form action="{{ url_for('book_professional') }}" method="post" style="display: inline;">
+                        <input type="hidden" name="professional_id" value="{{ professional.id }}">
+                        <button type="submit" class="btn btn-primary btn-sm">Book Now</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

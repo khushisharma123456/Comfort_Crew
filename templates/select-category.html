@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb) no-repeat center center/cover;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .login-container {
+            background: rgba(0, 0, 0, 0.6); /* Slight transparency for elegance */
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #ffdda1;
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #ffd8d8;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"], input[type="password"] {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            width: 90%;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #4fdcd3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #38b0a9;
+            transform: scale(1.05);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        .login-container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            width: 100%;
+            background-color: #f9f9f9; /* Light background color */
+            color: #333; /* Text color */
+            appearance: none; /* Remove default dropdown arrow */
+            -webkit-appearance: none; /* For Safari */
+            -moz-appearance: none; /* For Firefox */
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+        
+        /* Styling the dropdown arrow */
+        select::-ms-expand {
+            display: none; /* Hides default arrow in IE */
+        }
+        
+        /* Focus styles */
+        select:focus {
+            outline: none;
+            border-color: #4fdcd3; /* Change border color on focus */
+            background-color: #fff; /* Lighter background on focus */
+        }
+        
+        /* Add a custom arrow icon */
+        select::after {
+            content: '▼'; /* Unicode character for down arrow */
+            font-size: 18px;
+            color: #888;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <title>Select Service Category</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <div class="login-container">
+    <p><h3>Select Your Service Category</h3></p>
+    <form method="POST">
+        <select name="category" required>
+            
+            <option value="beauty">Beauty</option>
+            <option value="cleaning">Cleaning</option>
+            <option value="electrical">Electrical</option>
+            <option value="plumbing">Plumbing</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    <div>
+</body>
+</html>

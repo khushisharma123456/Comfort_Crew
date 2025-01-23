@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comfort Crew - Admin Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb);
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #ff6f91;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2, h3 {
+            font-size: 24px;
+            color: #333;
+            margin-top: 20px;
+            border-bottom: 2px solid #ff9a9e;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        li span {
+            font-weight: bold;
+            font-size: 14px;
+            color: red;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button[type="submit"] {
+            font-size: 14px;
+        }
+
+        .btn-success {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            color: #fff;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        @media (max-width: 768px) {
+            li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+        .navbar-links {
+            display: flex; /* Ensures the links are laid out in a row */
+            gap: 20px; /* Adds spacing between links */
+            align-items: center; /* Aligns items vertically */
+        }
+        
+        .nav-link {
+            text-decoration: none; /* Removes underline */
+            font-weight: bold;
+            color: #333;
+            transition: color 0.3s ease, font-size 0.3s ease;
+            padding: 5px 10px; /* Adds some padding around the links */
+        }
+        
+        .nav-link:hover {
+            color: #ff6f91 !important; /* Adds a hover color */
+            font-size: 18px; /* Slightly increases size on hover */
+        }
+        
+        .logout-link {
+            color: #ff6f91; /* Highlights the logout link */
+        }
+        
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(5px); /* Adds blur effect to navbar background */
+            padding: 10px 20px; /* Adds spacing inside the navbar */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background: rgba(255, 255, 255, 0.8); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        <a class="navbar-brand" href="#" style="font-weight: bold; color: #ff6f91; font-size: 24px;">Comfort Crew</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <div class="navbar-links">
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+                <a class="nav-link" href="{{ url_for('about_us') }}">About Us</a>
+                <a class="nav-link" href="{{ url_for('feedback') }}">Feedback</a>
+                <a class="nav-link logout-link" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+
+    
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+
+        <h2>Manage Users</h2>
+
+        <h3>Customers</h3>
+        <ul>
+            {% for customer in customers %}
+            <li>
+                <strong>{{ customer.username }}</strong>
+                {% if customer.is_blocked %}
+                <span>(Blocked)</span>
+                {% else %}
+                <span>(Active)</span>
+                {% endif %}
+                <div class="actions">
+                    <form action="{{ url_for('block_user', id=customer.id) }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Block</button>
+                    </form>
+                    <form action="{{ url_for('unblock_user', id=customer.id) }}" method="POST">
+                        <button type="submit" class="btn btn-success">Unblock</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Service Professionals</h3>
+        <ul>
+            {% for professional in professionals %}
+            <li>
+                <strong>{{ professional.username }}</strong>
+                {% if professional.is_blocked %}
+                <span>(Blocked)</span>
+                {% else %}
+                <span>(Active)</span>
+                {% endif %}
+                <div class="actions">
+                    <form action="{{ url_for('block_user', id=professional.id) }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Block</button>
+                    </form>
+                    <form action="{{ url_for('unblock_user', id=professional.id) }}" method="POST">
+                        <button type="submit" class="btn btn-success">Unblock</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Service Requests</h2>
+        <ul>
+            {% for request in bookings %}
+            <li>
+                <strong>Service:</strong> {{ request.service_name }}<br>
+                <strong>Customer:</strong> {{ request.customer.username }}<br>
+                <strong>Professional:</strong> {{ request.professional.username }}<br>
+                <strong>Approval Status:</strong> {{ request.approval_status }}<br>
+                <strong>Status:</strong> {{ request.status }}
+                {% if request.approval_status == 'Pending' %}
+                <div class="actions">
+                    <form action="{{ url_for('approve_booking', booking_id=request.id) }}" method="POST">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    <form action="{{ url_for('block_booking', booking_id=request.id) }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Block</button>
+                    </form>
+                </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <footer>
+        &copy; 2024 Comfort Crew. All rights reserved.
+    </footer>
+</body>
+</html>
